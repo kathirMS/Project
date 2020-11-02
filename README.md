@@ -4,11 +4,14 @@ This Shell Script code Merge the BaseProparties file  and Given child  Propartie
 
 ## Requirements
 1.vim editor
+
 2.bash terminal
 
 ## required files
 1.Base proparty file
+
 2.Include files
+
 3.Runtime proparty file
 ## Input
 ----

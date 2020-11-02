@@ -1,5 +1,3 @@
-#goto the include file
-#cd include
 
 #sort the files
 fileList=$(ls include| sort -n)

@@ -1,6 +1,6 @@
 # Introduction
 
-This Shell Script code Merge the BaseProparties file  and Given child  Proparties  file Then Save in runtime.proparties file.
+This Shell Script code Merge the BaseProperties file  and Given child  Properties  file Then Save in runtime.properties file.
 
 ## Requirements
 1.vim editor
@@ -8,23 +8,23 @@ This Shell Script code Merge the BaseProparties file  and Given child  Propartie
 2.bash terminal
 
 ## required files
-1.Base proparty file
+1.Base property file
 
 2.Include files
 
-3.Runtime proparty file
+3.Runtime property file
 ## Input
 ----
  **input format**
 
-       application.sh  `include proparties file name`
+       application.sh  `include properties file name`
        
 ## Output
 ----
       
 **Return the Success message**
 
-         Given Proparty file is ::--> given proparties file name  
+         Given Property file is ::--> given properties file name  
          
 **Return the Error message** 
   
@@ -34,16 +34,16 @@ This Shell Script code Merge the BaseProparties file  and Given child  Propartie
    
         chmod +x application.sh
         
-        ./application.include proparties file name
+        ./application.sh include properties file name
        
 ## commands 
 
-        ./application.sh dev.proparties 
+        ./application.sh dev 
         
-        ./application.sh test.proparties
+        ./application.sh test
         
-        ./application.sh stage.proparties
+        ./application.sh stage
         
-        ./application.sh final.proparties 
+        ./application.sh final 
        
 

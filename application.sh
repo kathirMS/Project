@@ -7,17 +7,18 @@ flage=0
 #Find the given file is correct or Not
 for i in $fileList
 do
-    if [ $1 == $i ];
+    if [ $1".properties" == $i ];
     then
            
-           echo "Given Proparty file is ::-->  $i"
+           echo "Given Property file is ::-->  $i"
 
-           #get the base proparties data and save in runTime.proparties
-	   cat config/base.proparties > runtime/runtime.proparties
+           #get the base properties data and save in runTime.properties
+	   cat config/base.properties > runtime/runtime.properties
 
-           #get given file proparties and save in runTimeproparties
-	   cat include/$1 >> runtime/runtime.proparties
+           #get given file properties and save in runTimeproperties
+	   cat include/$1".properties" >> runtime/runtime.properties
 
+	    
 	   flage=0
 
 	   break

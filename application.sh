@@ -1,6 +1,6 @@
 
 #sort the files
-fileList=$(ls include| sort -n)
+fileList=$(ls config/include | sort -n)
 
 flage=0
 
@@ -12,11 +12,11 @@ do
            
            echo "Given Property file is ::-->  $i"
 
-           #get the base properties data and save in runTime.properties
-	   cat config/base.properties > runtime/runtime.properties
+           #get the base properties data and save in runtime.properties
+	   cat config/base.properties >config/runtime/runtime.properties
 
            #get given file properties and save in runTimeproperties
-	   cat include/$1".properties" >> runtime/runtime.properties
+	   cat config/include/$1".properties" >> config/runtime/runtime.properties
 
 	    
 	   flage=0

@@ -7,7 +7,7 @@ flage=0
 #Find the given file is correct or Not
 for i in $fileList
 do
-    if [ $1".properties" == $i ];
+    if [ $1".properties" == $i ]
     then
            
            echo "Given Property file is ::-->  $i"
@@ -32,7 +32,7 @@ do
 done
 
 #when the given file name is Not correct  
-if [ $flage == 1 ];
+if [ $flage == 1 ]
     then
 
             echo "Given File is Not Correct "

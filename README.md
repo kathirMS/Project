@@ -1,6 +1,6 @@
 # Introduction
 
-This Shell Script code Merge the BaseProperties file  and Given child  Properties  file Then Save in runtime.properties file.
+This Shell Script code Merge the BaseProperties file  and Given child  Properties  file Then Save in runtime.properties file.And validate the each properties files.
 
 ## Requirements
 1.vim editor
@@ -29,6 +29,19 @@ This Shell Script code Merge the BaseProperties file  and Given child  Propertie
 **Return the Error message** 
   
        Given File Not Correct
+       
+##  Validation of properties files 
+----
+**Return the Success Message**
+      
+      none
+**Return the Error Message** 
+  
+     Error Duplicate 
+     
+     file : File Name Of Properties 
+     
+     Duplicate : Property Name And Value
        
 ##  commands for execute code
    

@@ -1,22 +1,61 @@
 #validation Process
 
 validate(){
- 
-fileNameList=$(ls config/include | sort -n)
+
+#get the all propeties files
+ls config/include |sort -n > .sortNames
+fileNameList=$(echo "base.properties" >>.sortNames | cat .sortNames) 
+
+echo "base.properties" >>$fileNameList 
+
+#change directory to properties files
 cd config/include
+
+#validation process
 for i in $fileNameList
 do
+	#vaildate the base.properties file
+	if [ "base.properties" = $i ]
+	then
+                cd ../		
+	fi
 
-        cat $i |  unique out
-        cat out > $i
-        rm out
+
+       filename=$i 
+       count=1;
+       while read line; 
+       do	    
+
+           filename2=$i
+           count1=1
+           while read line1;
+           do
+	   	 
+	       if [ $count1 == $count ] 
+               then
+		    
+	             count1=$((count1+1))  	     
+                     continue;   
+	       fi
+	      
+ 	     
+	      if [ $(echo $line | cut -d '=' -f1) = $(echo $line1 | cut -d '=' -f1) ] || [ $(echo $line | cut -d '=' -f2) = $(echo $line1 | cut -d '=' -f2) ];
+              then
+                    echo "Error Duplicate "
+                    echo "file :$i"
+	            echo "Duplicate : $line"
+              fi
+	
+           count1=$((count1+1))
+       	   done < $filename2
+
+
+   
+      count=$((count+1))
+      done < $filename
 done
 
-cd ../
 
- cat base.properties | unique out
- cat out > base.properties
- rm out
   
 }
 

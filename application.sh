@@ -6,7 +6,7 @@ validate(){
 ls config/include |sort -n > .sortNames
 fileNameList=$(echo "base.properties" >>.sortNames | cat .sortNames) 
 
-echo "base.properties" >>$fileNameList 
+#echo "$fileNameList" 
 
 #change directory to properties files
 cd config/include
@@ -17,46 +17,80 @@ do
 	#vaildate the base.properties file
 	if [ "base.properties" = $i ]
 	then
+
                 cd ../		
 	fi
 
+       #stor the file content
+        arr=()
+                while IFS= read -r line; 
+                do
+                  arr+=("$line")
+                done <$i
 
-       filename=$i 
+            N=$(cat $i | wc -l)
+
        count=1;
+       
        while read line; 
-       do	    
+       do 
+             
+               flag=0
+	       flag1=0
+	       for ((j=$count;j<N;j++));
+               do
+			 
+			
+			 if [  $(echo $line | cut -b 2-8) == "section" ] 
+			 then
+                                 flag=1
+			 else
+				 flag=0
+			 fi
+		
+			 if [ $(echo ${arr[j]} | cut -b 2-8) == "section" ]
+                         then
+                              flag1=1
+                         else
+		              flag1=0
+			 fi
 
-           filename2=$i
-           count1=1
-           while read line1;
-           do
-	   	 
-	       if [ $count1 == $count ] 
-               then
-		    
-	             count1=$((count1+1))  	     
-                     continue;   
-	       fi
-	      
- 	     
-	      if [ $(echo $line | cut -d '=' -f1) = $(echo $line1 | cut -d '=' -f1) ] || [ $(echo $line | cut -d '=' -f2) = $(echo $line1 | cut -d '=' -f2) ];
-              then
-                    echo "Error Duplicate "
-                    echo "file :$i"
-	            echo "Duplicate : $line"
-              fi
-	
-           count1=$((count1+1))
-       	   done < $filename2
+                    
+			 
+                         if [ $flag == 1 ]
+			 then
+				  if [ $line == ${arr[j]} ]
+                                     then
+                                         echo "Error Found Duplicate Section"
+                                         echo "File Name : $i"
+					 echo "Duplicate : $line"
+                                  fi
 
+			  else
+				  if [ $flag1 == 0 ]
+				  then   
+					   if [ $(echo $line | cut -d '=' -f1) = $(echo ${arr[j]} | cut -d '=' -f1) ]
+					   then
+						  echo "Error Found Duplicate Property"
+						  echo "File Name : $i"
+						  echo "Duplicate : $( echo $line |cut -d '=' -f1 )"
+					   fi
+					   if [ $(echo $line | cut -d '=' -f2) = $(echo ${arr[j]} | cut -d '=' -f2) ]
+                                           then   
+						  echo "Error Found duplicate value"
+						  echo "file Name : $i"
+						  echo "Duplicate : $( echo $line | cut -d '=' -f2 )"
+                                           fi
 
-   
-      count=$((count+1))
-      done < $filename
-done
+				  else
+					 break
+				  fi 
 
-
-  
+			 fi
+               done 
+	   count=$((count+1))    
+     done < $i
+done  
 }
 
 

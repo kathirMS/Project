@@ -1,6 +1,6 @@
 # Introduction
 
-This Shell Script code Merge the BaseProperties file  and Given child  Properties  file Then Save in runtime.properties file.And validate the each properties files.
+This Shell Script code validate the all properties files and override the base properties file by include properties files.finally store in runtime properties file
 
 ## Requirements
 1.vim editor
@@ -17,18 +17,32 @@ This Shell Script code Merge the BaseProperties file  and Given child  Propertie
 ----
  **input format**
 
-       application.sh  `include properties file name`
+       application.sh 
        
 ## Output
 ----
       
 **Return the Success message**
-
-         Given Property file is ::--> given properties file name  
+      *Example*
+          Override
+          File Name    : dev.properties
+          Section Name : [section1]
+          Property     : property5
+          Value        : value78
+  
          
 **Return the Error message** 
-  
-       Given File Not Correct
+  *Example*
+      Error Found Duplicate Property
+      File Name : dev.properties 
+      Duplicate : property6
+      Error Found duplicate value
+      file Name : dev.properties
+      Duplicate : value6
+      Error Found duplicate Section
+      file Name : dev.properties
+      Duplicate : [section0]
+      
        
 ##  Validation of properties files 
 ----
@@ -47,16 +61,5 @@ This Shell Script code Merge the BaseProperties file  and Given child  Propertie
    
         chmod +x application.sh
         
-        ./application.sh include properties file name
+        ./application.sh 
        
-## commands 
-
-        ./application.sh dev 
-        
-        ./application.sh test
-        
-        ./application.sh stage
-        
-        ./application.sh final 
-       
-

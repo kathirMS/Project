@@ -28,7 +28,7 @@ do
                   arr+=("$line")
                 done <$i
 
-            N=$(cat $i | wc -l)
+            length=$(cat $i | wc -l)
 
        count=1;
        
@@ -37,9 +37,9 @@ do
              
                flag=0
 	       flag1=0
-	       for ((j=$count;j<N;j++));
+	       for ((j=$count;j<length;j++));
                do
-			 
+		
 			
 			 if [  $(echo $line | cut -b 2-8) == "section" ] 
 			 then
@@ -56,7 +56,6 @@ do
 			 fi
 
                     
-			 
                          if [ $flag == 1 ]
 			 then
 				  if [ $line == ${arr[j]} ]
@@ -97,44 +96,61 @@ done
 #sort the files
 fileList=$(ls config/include | sort -n)
 
-flage=0
 #call the validate function
 validate
-#Find the given file is correct or Not
+
+#store the base.properties value in array
+ arr=()
+         while IFS= read -r line;
+         do
+            arr+=("$line")
+         done <base.properties
+
+            length=$(cat $i | wc -l)
+
+#override process
+cd include	    
 for i in $fileList
 do
-    if [ $1".properties" == $i ]
-    then
-           
-           echo "Given Property file is ::-->  $i"
+   sectionName="no"
+   sectionName1="no"
+   for ((j=0;j<length;j++))
+   do   
+	   if [ $(echo ${arr[j]} | cut -b 2-8) == "section" ]
+	   then
+                  sectionName=${arr[j]}
+		  continue;
+	   fi
+	   while read line;
+           do
+		if [ $(echo $line | cut -b 2-8) == "section"  ]
+		then
+                    sectionName1=$line 
+		fi	
+                if [ $(echo $line | cut -d '=' -f1) = $(echo ${arr[j]} | cut -d '=' -f1)  ]
+		then
+			if [ $sectionName = $sectionName1 ]
+			then
+				echo "Override"
+				echo "File Name    : $i" 
+				echo "Section Name : $sectionName"
+				echo "Property     : $(echo $line | cut -d '=' -f1)"
+				echo "Value        : $(echo $line | cut -d '=' -f2)"
+				arr[j]=$line
+                               
+			fi
+		fi
 
-           #get the base properties data and save in runtime.properties
-	   cat  base.properties > runtime/runtime.properties
-
-           #get given file properties and save in runTimeproperties
-	   cat include/$1".properties" >> runtime/runtime.properties
-
-	    
-	   flage=0
-
-	   break
-
-    else
-
-	   flage=1
-
-    fi
+           done<$i	     
+   done    
 
 done
-
-#when the given file name is Not correct  
-if [ $flage == 1 ]
-    then
-
-            echo "Given File is Not Correct "
-  
-    fi
-
-
+#finally store in runtime.properties file
+cd ../
+cat /dev/null > runtime/runtime.properties  
+for i in ${arr[@]}
+do
+	echo "$i" >>runtime/runtime.properties
+done
 
 

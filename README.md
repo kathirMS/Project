@@ -23,29 +23,46 @@ This Shell Script code validate the all properties files and override the base p
 ----
       
 **Return the Success message**
+
       *Example*
+      
           Override
+          
           File Name    : dev.properties
+          
           Section Name : [section1]
+          
           Property     : property5
+          
           Value        : value78
   
          
 **Return the Error message** 
+
   *Example*
+  
       Error Found Duplicate Property
+      
       File Name : dev.properties 
+      
       Duplicate : property6
+      
       Error Found duplicate value
+ 
       file Name : dev.properties
+ 
       Duplicate : value6
+ 
       Error Found duplicate Section
+ 
       file Name : dev.properties
+ 
       Duplicate : [section0]
       
        
 ##  Validation of properties files 
 ----
+
 **Return the Success Message**
       
       none
